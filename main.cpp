@@ -1,7 +1,7 @@
 // Kontenery
 #include <vector>	// Tablica
 #include <set>		// Zbiór
-#include <map>		// Słownik
+#include <map>		// S³ownik
 
 // Adaptery
 #include <queue>	// Kolejka
@@ -42,27 +42,68 @@ void containers(Slav * slavs, int n)
 	vector <Slav *> vectorOfSlavs;
 	set <Slav *> setOfSlavs;
 	map <Slav *, Slav *> mapOfSlavs;
-	
+
 	printf("# Containers\n");
 	REPORT_CONTAINERS;
 	printf("## vector\n");
 
-	// Umieść Słowian w losowej kolejności w wektorze.
+	// Umieœæ S³owian w losowej kolejnoœci w wektorze.
+    srand(time(NULL));
+	vectorOfSlavs.push_back(0);
+	for (int i = 0; i < n; i++)
+	{
+		int position = rand() % vectorOfSlavs.size();
+		vectorOfSlavs.insert(vectorOfSlavs.begin() + position, i);
+	}
 
-	// Wykorzystując iterator i funkcję description(), wyświetl wszystkich Słowian w wektorze
+	// Wykorzystuj¹c iterator i funkcjê description(), wyœwietl wszystkich S³owian w wektorze
+vector <Slav *>::iterator i;
+	for (i = vectorOfSlavs.begin(); i != vectorOfSlavs.end(); i++)
+	{
+		cout << (**i).description() << endl;
+	}
 
 	REPORT_CONTAINERS;
 	printf("## set\n");
 
-	// Przenieś wszystkich Słowian z wektoru do zbioru.
-	
+	// Przenieœ wszystkich S³owian z wektoru do zbioru.
+	for (int i=0;i<n;i++)
+    {
+		setOfSlavs.insert(vectorOfSlavs[i]);
+	}
+
 	REPORT_CONTAINERS;
 	printf("## map\n");
 
-	// Stwórz słownik tworzący pary Słowian, z tych znajdujących się w zbiorze, czyszcząc zbiór
-	
-	// Wykorzystując iterator, wyświetl wszystkie pary Słowian
-	
+	// Stwórz s³ownik tworz¹cy pary S³owian, z tych znajduj¹cych siê w zbiorze, czyszcz¹c zbiór
+
+    set<Slav*>::iterator it_set=setOfSlavs.begin();
+	set<Slav*>::iterator it=setOfSlavs.end();
+	it--;
+	int k = 1;
+	while(it_set != setOfSlavs.end()   ){
+
+		mapOfSlavs[*it_set]= (*it );
+
+		setOfSlavs.erase(*it_set);
+		setOfSlavs.erase(*it);
+
+		it_set = setOfSlavs.begin();
+		it = setOfSlavs.begin();
+
+		for(int i=0;i<(n-1-k-k);i++){it++;}
+
+		j++;
+		REPORT_CONTAINERS;
+	}
+
+	// Wykorzystuj¹c iterator, wyœwietl wszystkie pary S³owian
+map <Slav *, Slav *>::iterator i = mapOfSlavs.begin();
+	for(i; i != mapOfSlavs.end(); i++)
+	{
+		cout << *(i).first->desctription() << " " << *(i).second->description() << endl;
+	}
+
 	REPORT_CONTAINERS;
 }
 
@@ -75,16 +116,16 @@ void adapters(Slav * slavs, int n)
 	REPORT_ADAPTERS;
 	printf("## queue\n");
 
-	// Umieść Słowian w kolejce.
-	
+	// Umieœæ S³owian w kolejce.
+
 	REPORT_ADAPTERS;
 
 	printf("## stack\n");
-	// Przenieś Słowian z kolejki do stosu.
+	// Przenieœ S³owian z kolejki do stosu.
 
 	REPORT_ADAPTERS;
 
-	// Wyświetl Słowian zdejmowanych ze stosu.
+	// Wyœwietl S³owian zdejmowanych ze stosu.
 
 	REPORT_ADAPTERS;
 }
